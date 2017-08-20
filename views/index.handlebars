@@ -1,0 +1,37 @@
+<div class="ui container">
+    <img src="images/burger.png" alt="burger-image" class="ui centered image">
+</div>
+<div class='ui container grid'>
+    <div class="eight wide column">
+        {{#each results}}
+            {{#unless this.devoured}}
+                <form action='/{{this.id}}?_method=PUT&devoured=false' method="POST" class='ui form devoured'>
+                    <input type='text' name='{{this.burgerName}}' value='{{this.burgerName}}' disabled="">
+                    <button class='ui button' type='submit'>Devour It</button>
+                </form>
+                <form action="/{{this.id}}?_method=DELETE" method="POST" class="ui form">
+                    <button class="ui button negative">Remove Burger</button>
+                </form>
+            {{/unless}}
+        {{/each}}
+    </div>
+    <div class="eight wide column">
+        {{#each results}}
+            {{#if this.devoured}}
+                <form action='/{{this.id}}?_method=PUT&devoured=true' method="POST" class='ui form notDevoured'>
+                    <input type='text' name='{{this.burgerName}}' value='{{this.burgerName}}' disabled="">
+                    <button class='positive ui button' type='submit'>Make Another</button>
+                </form>
+                <form action="/{{this.id}}?_method=DELETE" method="POST" class="ui form">
+                    <button class="ui button negative">Remove Burger</button>
+                </form>
+            {{/if}}
+        {{/each}}
+    </div>
+</div>
+<div class="ui container">
+    <form action="/" method="POST" class='ui form'>
+        <input type="text" name='burgerName'>
+        <button type='submit' class='positive ui button'>Submit</button>
+    </form>
+</div>
